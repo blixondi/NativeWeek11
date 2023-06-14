@@ -17,6 +17,7 @@ import com.ubaya160420092.adv160420092week4.viewmodel.DetailViewModel
 class StudentDetailFragment : Fragment() {
     private lateinit var detailViewModel: DetailViewModel
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

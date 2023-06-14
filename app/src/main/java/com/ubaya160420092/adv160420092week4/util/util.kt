@@ -6,12 +6,14 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.ubaya160420092.adv160420092week4.R
@@ -30,6 +32,7 @@ fun ImageView.loadImage(url: String?, progressBar: ProgressBar) {
             }
 
             override fun onError(e: Exception?) {
+                Log.e("errorcheck",e?.message.toString())
             }
         })
 
@@ -68,4 +71,9 @@ fun createNotificationChannel(context:Context, importance:Int, showBadge:Boolean
         val notificationManager=context.getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(channel)
     }
+}
+
+@BindingAdapter("android:imageUrl","android:progressBar")
+fun loadPhotoURL(view: ImageView, url:String, pb:ProgressBar) {
+    view.loadImage(url,pb)
 }
