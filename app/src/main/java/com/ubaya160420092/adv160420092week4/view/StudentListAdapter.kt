@@ -15,7 +15,10 @@ import com.ubaya160420092.adv160420092week4.databinding.StudentListItemBinding
 import com.ubaya160420092.adv160420092week4.model.Student
 import com.ubaya160420092.adv160420092week4.util.loadImage
 
-class StudentListAdapter(val studenList:ArrayList<Student>): RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>() {
+class StudentListAdapter(val studenList:ArrayList<Student>):
+    RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>(),
+    ButtonDetailClickListener
+    {
 
     class StudentViewHolder(var view: StudentListItemBinding) : RecyclerView.ViewHolder(view.root)
 
@@ -31,6 +34,8 @@ class StudentListAdapter(val studenList:ArrayList<Student>): RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: StudentListAdapter.StudentViewHolder, position: Int) {
+        holder.view.student = studenList[position]
+        holder.view.listener = this
 //        val txtID = holder.view.findViewById<TextView>(R.id.txtID)
 //        val txtName = holder.view.findViewById<TextView>(R.id.txtName)
 //        val btnDetail = holder.view.findViewById<Button>(R.id.btnDetail)
@@ -57,4 +62,9 @@ class StudentListAdapter(val studenList:ArrayList<Student>): RecyclerView.Adapte
         studenList.addAll(newStudentList)
         notifyDataSetChanged()
     }
-}
+
+        override fun onButtonDetailClick(v: View) {
+            val action = StudentListFragmentDirections.actionStudentDetail(v.tag.toString())
+            Navigation.findNavController(v).navigate(action)
+        }
+    }
